@@ -1,9 +1,8 @@
 import os
 import pickle
 import tqdm as tqdm
-
 from feature_extractor import FeatureExtractor
-import tensorflow
+import sys
 
 extensions = ['.jpg', '.JPG', '.jpeg', '.JPEG', '.png', '.PNG']
 
@@ -20,16 +19,25 @@ def get_file_list(root_dir):
 
 
 # path to the datasets
-root_dir = 'caltech101'
+path = 'caltech101'
+
+if len(sys.argv) == 2:
+    path = sys.argv[1]
+
+root_dir = path
 filenames = sorted(get_file_list(root_dir))
+print("Total Files: " + str(len(filenames)))
 
-
+# Extracting Images features
 feature_list = []
 for i in tqdm.tqdm(range(len(filenames))):
     feature_list.append(FeatureExtractor.extract(filenames[i]))
 
-pickle.dump(feature_list, open('data/features-caltech101-resnet.pickle', 'wb'))
-print("Pickle Dump success on location : data/features-caltech101-resnet.pickle")
 
-pickle.dump(filenames, open('data/filenames-caltech101.pickle','wb'))
-print("Pickle Dump success on location : data/filenames-caltech101.pickle")
+# Saving Features in pickle file
+pickle.dump(feature_list, open('data/features.pickle', 'wb'))
+print("Pickle Dump success on location: data/features.pickle")
+
+# Saving Filenames in pickle File
+pickle.dump(filenames, open('data/filenames.pickle','wb'))
+print("Pickle Dump success on location: data/filenames.pickle")
