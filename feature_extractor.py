@@ -26,7 +26,7 @@ class FeatureExtractor:
         # Subtracting avg values for each pixel
         preprocessed_img = preprocess_input(expanded_img_array)
 
-        # (1, 4096) -> (4096, )
+        # (1, 2048) -> (2048)
         features = FeatureExtractor.model.predict(preprocessed_img)  
 
         flattened_features = features.flatten()

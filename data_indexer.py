@@ -19,7 +19,7 @@ def get_file_list(root_dir):
 
 
 # path to the datasets
-path = 'caltech101'
+path = 'dataset'
 
 if len(sys.argv) == 2:
     path = sys.argv[1]
